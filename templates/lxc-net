@@ -1,0 +1,104 @@
+#!/bin/sh
+
+### BEGIN INIT INFO
+# Provides:             lxc-net
+# Required-Start:       $syslog $remote_fs lxc
+# Required-Stop:        $syslog $remote_fs lxc
+# Should-Start:
+# Should-Stop:
+# Default-Start:        2 3 4 5
+# Default-Stop:         0 1 6
+# Short-Description:    Linux Containers Network Configuration
+# Description:          Linux Containers Network Configuration
+# X-Start-Before:
+# X-Stop-After:
+# X-Interactive:        true
+### END INIT INFO
+
+# Taken from ubuntu's lxc-net upstart config and adopted to init script
+# original author: Serge Hallyn <serge.hallyn@canonical.com>
+
+USE_LXC_BRIDGE="false"
+LXC_BRIDGE="lxcbr0"
+LXC_ADDR="10.0.3.1"
+LXC_NETMASK="255.255.255.0"
+LXC_NETWORK="10.0.3.0/24"
+LXC_DHCP_RANGE="10.0.3.2,10.0.3.254"
+LXC_DHCP_MAX="253"
+LXC_DHCP_CONFILE=""
+varrun="/var/run/lxc"
+LXC_DOMAIN=""
+
+. /lib/lsb/init-functions
+
+start() {
+	[ -f /etc/default/lxc ] && . /etc/default/lxc
+
+	[ "x$USE_LXC_BRIDGE" = "xtrue" ] || { exit 0; }
+
+	if [ -d /sys/class/net/${LXC_BRIDGE} ]; then
+		if [ ! -f ${varrun}/network_up ]; then
+			# bridge exists, but we didn't start it
+			exit 0;
+		fi
+		exit 0;
+	fi
+
+	cleanup() {
+		# dnsmasq failed to start, clean up the bridge
+		iptables -t nat -D POSTROUTING -s ${LXC_NETWORK} ! -d ${LXC_NETWORK} -j MASQUERADE || true
+		ifconfig ${LXC_BRIDGE} down || true
+		brctl delbr ${LXC_BRIDGE} || true
+	}
+
+	# set up the lxc network
+	brctl addbr ${LXC_BRIDGE} || { echo "Missing bridge support in kernel"; exit 0; }
+	echo 1 > /proc/sys/net/ipv4/ip_forward
+	mkdir -p ${varrun}
+	ifconfig ${LXC_BRIDGE} ${LXC_ADDR} netmask ${LXC_NETMASK} up
+	iptables -t nat -A POSTROUTING -s ${LXC_NETWORK} ! -d ${LXC_NETWORK} -j MASQUERADE
+
+	LXC_DOMAIN_ARG=""
+	if [ -n "$LXC_DOMAIN" ]; then
+		LXC_DOMAIN_ARG="-s $LXC_DOMAIN"
+	fi
+	dnsmasq $LXC_DOMAIN_ARG -u dnsmasq --strict-order --bind-interfaces --pid-file=${varrun}/dnsmasq.pid --conf-file=${LXC_DHCP_CONFILE} --listen-address ${LXC_ADDR} --dhcp-range ${LXC_DHCP_RANGE} --dhcp-lease-max=${LXC_DHCP_MAX} --dhcp-no-override --except-interface=lo --interface=${LXC_BRIDGE} --dhcp-leasefile=/var/lib/misc/dnsmasq.${LXC_BRIDGE}.leases --dhcp-authoritative || cleanup
+	touch ${varrun}/network_up
+}
+
+stop() {
+	[ -f /etc/default/lxc ] && . /etc/default/lxc
+	[ -f "${varrun}/network_up" ] || exit 0;
+	# if $LXC_BRIDGE has attached interfaces, don't shut it down
+	ls /sys/class/net/${LXC_BRIDGE}/brif/* > /dev/null 2>&1 && exit 0;
+
+	if [ -d /sys/class/net/${LXC_BRIDGE} ]; then
+		ifconfig ${LXC_BRIDGE} down
+		iptables -t nat -D POSTROUTING -s ${LXC_NETWORK} ! -d ${LXC_NETWORK} -j MASQUERADE || true
+		pid=`cat ${varrun}/dnsmasq.pid 2>/dev/null` && kill -9 $pid || true
+		rm -f ${varrun}/dnsmasq.pid
+		brctl delbr ${LXC_BRIDGE}
+	fi
+	rm -f ${varrun}/network_up
+}
+
+case "${1}" in
+	start)
+		log_daemon_msg "Starting Linux Containers"
+
+		start
+		;;
+
+	stop)
+		log_daemon_msg "Stopping Linux Containers"
+
+		stop
+		;;
+
+	restart|force-reload)
+		log_daemon_msg "Restarting Linux Containers"
+
+		stop
+		start
+		;;
+esac

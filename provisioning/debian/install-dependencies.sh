@@ -1,0 +1,18 @@
+#!/bin/bash
+
+set -e
+
+if $(which lxc-create > /dev/null); then
+  echo 'dependencies already installed'
+else
+  apt-get update  -q
+  # TODO: Check if we'll need to always upgrade the kernel
+  export DEBIAN_FRONTEND=noninteractive
+  apt-get install -y -q lxc redir #linux-image-generic linux-headers-generic
+  apt-get autoremove -y
+fi
+
+if [[ `uname -r` == "3.5.0-17-generic" ]]; then
+  echo 'An old kernel was found on the guest machine and was upgraded'
+  echo 'Please restart the machin'
+fi

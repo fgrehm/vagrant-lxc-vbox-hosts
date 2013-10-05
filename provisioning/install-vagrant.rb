@@ -1,6 +1,13 @@
 #!/usr/bin/env ruby
 
+# TODO: Convert to bash if all guests have bash 4.2+
+#       http://www.artificialworlds.net/blog/2012/10/17/bash-associative-array-examples/
+
 VAGRANTS = {
+  '1.3.3' => 'http://files.vagrantup.com/packages/db8e7a9c79b23264da129f55cf8569167fc22415/vagrant_1.3.3_x86_64.deb',
+  '1.3.2' => 'http://files.vagrantup.com/packages/9a394588a6dcf97e8f916da9564088fcf242c4b3/vagrant_1.3.2_x86_64.deb',
+  '1.3.1' => 'http://files.vagrantup.com/packages/b12c7e8814171c1295ef82416ffe51e8a168a244/vagrant_1.3.1_x86_64.deb',
+  '1.3.0' => 'http://files.vagrantup.com/packages/0224c6232394680971a69d94dd55a7436888c4cb/vagrant_1.3.0_x86_64.deb',
   '1.2.7' => 'http://files.vagrantup.com/packages/7ec0ee1d00a916f80b109a298bab08e391945243/vagrant_1.2.7_x86_64.deb',
   '1.2.6' => 'http://files.vagrantup.com/packages/22b76517d6ccd4ef232a4b4ecbaa276aff8037b8/vagrant_1.2.6_x86_64.deb',
   '1.2.5' => 'http://files.vagrantup.com/packages/ec2305a9a636ba8001902cecb835a00e71a83e45/vagrant_1.2.5_x86_64.deb',
@@ -16,6 +23,8 @@ if system('which vagrant > /dev/null 2>/dev/null')
   exit 0
 end
 
+# TODO: Choose between .deb and .rpm
+
 puts "Installing vagrant #{ARGV[0]}"
-system "wget #{VAGRANTS.fetch ARGV[0]}  -O /tmp/vagrant.deb -q"
+system "wget #{VAGRANTS.fetch ARGV[0]} -O /tmp/vagrant.deb -q"
 system "dpkg -i /tmp/vagrant.deb"

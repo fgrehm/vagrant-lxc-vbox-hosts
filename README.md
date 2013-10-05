@@ -8,7 +8,7 @@ usage, serving as "live documentation" on how to set up hosts for using the plug
 ```
 $ git clone https://github.com/fgrehm/vagrant-lxc-vbox-hosts.git
 $ cd vagrant-lxc-vbox-hosts
-$ vagrant up BOX_NAME --provider=virtualbox
+$ vagrant up BOX_NAME
 $ vagrant reload BOX_NAME
 ```
 
@@ -16,5 +16,8 @@ $ vagrant reload BOX_NAME
 
 | BOX_NAME | Distro |
 | -------- | ------ |
-| quantal64 | Ubuntu 12.10 64 bits |
-| squeeze64 | Debian 6.0 64 bits |
+| precise | Ubuntu 12.04 64 bits |
+| quantal | Ubuntu 12.10 64 bits |
+| raring  | Ubuntu 13.04 64 bits |
+| saucy   | Ubuntu 13.10 64 bits |
+| wheezy  | Debian 7.0 64 bits |
