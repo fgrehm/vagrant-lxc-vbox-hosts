@@ -11,7 +11,7 @@ Vagrant.configure("2") do |config|
   config.cache.auto_detect = true
 
   config.vm.provider :virtualbox do |vb|
-    vb.customize [ "modifyvm", :id, "--memory", 1024, "--cpus", "3" ]
+    vb.customize [ "modifyvm", :id, "--memory", 512, "--cpus", "1" ]
   end
 
   # Choose any Vagrant version from 1.2.0 to 1.3.3
