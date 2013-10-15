@@ -8,7 +8,7 @@ else
   apt-get update  -q
   # TODO: Check if we'll need to always upgrade the kernel
   export DEBIAN_FRONTEND=noninteractive
-  apt-get install -y -q lxc redir #linux-image-generic linux-headers-generic
+  apt-get install -y -q lxc redir linux-image-generic linux-headers-generic
   apt-get autoremove -y
 fi
 
