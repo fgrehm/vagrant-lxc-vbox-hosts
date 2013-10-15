@@ -14,5 +14,5 @@ fi
 
 if [[ `uname -r` == "3.5.0-17-generic" ]]; then
   echo 'An old kernel was found on the guest machine and was upgraded'
-  echo 'Please restart the machin'
+  echo 'Please restart the machine'
 fi
