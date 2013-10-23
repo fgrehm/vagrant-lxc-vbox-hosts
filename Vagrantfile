@@ -54,4 +54,17 @@ Vagrant.configure("2") do |config|
     debian.vm.provision :shell, path: 'provisioning/debian/install-dependencies.sh'
     debian.vm.provision :shell, path: 'provisioning/debian/configure-bridge.sh'
   end
+
+  config.vm.define :fedora19 do |fedora|
+    fedora.vm.box = 'fedora19'
+    fedora.vm.box_url = 'https://dl.dropboxusercontent.com/u/86066173/fedora-19.box'
+    fedora.vm.network :private_network, ip: "192.168.50.106"
+    fedora.vm.provision :shell, path: 'provisioning/fedora/install-dependencies.sh'
+    fedora.vm.provision :shell, path: 'provisioning/fedora/configure-bridge.sh'
+
+    # Disable NFS for fedora as the base box we are using does not seem
+    # to support it
+    fedora.vm.synced_folder ".", "/vagrant", id: 'vagrant-root', nfs: false
+    fedora.cache.enable_nfs = false
+  end
 end
