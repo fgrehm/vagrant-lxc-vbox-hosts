@@ -9,6 +9,7 @@ Vagrant.configure("2") do |config|
   config.vm.synced_folder ".", "/vagrant", id: 'vagrant-root', nfs: true
   # Comment out if you don't have plans to use https://github.com/fgrehm/vagrant-cachier
   config.cache.auto_detect = true
+  config.cache.enable_nfs  = true
 
   config.vm.provider :virtualbox do |vb|
     vb.customize [ "modifyvm", :id, "--memory", 1536, "--cpus", "1" ]
