@@ -12,7 +12,7 @@ Vagrant.configure("2") do |config|
   config.cache.enable_nfs  = true
 
   config.vm.provider :virtualbox do |vb|
-    vb.customize [ "modifyvm", :id, "--memory", 1536, "--cpus", "1" ]
+    vb.customize [ "modifyvm", :id, "--memory", 1536, "--cpus", "2" ]
   end
 
   # Choose any Vagrant version from 1.2.0 to 1.3.3
