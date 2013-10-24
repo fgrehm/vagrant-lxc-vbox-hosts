@@ -35,7 +35,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.define :raring do |ubuntu|
     ubuntu.vm.box = 'raring64'
-    ubuntu.vm.box_url = 'http://goo.gl/Y4aRr'
+    ubuntu.vm.box_url = "http://cloud-images.ubuntu.com/vagrant/raring/current/raring-server-cloudimg-amd64-vagrant-disk1.box"
     ubuntu.vm.network :private_network, ip: "192.168.50.102"
     ubuntu.vm.provision :shell, path: 'provisioning/debian/install-dependencies.sh'
   end
@@ -45,6 +45,10 @@ Vagrant.configure("2") do |config|
     ubuntu.vm.box_url = 'http://cloud-images.ubuntu.com/vagrant/saucy/current/saucy-server-cloudimg-amd64-vagrant-disk1.box'
     ubuntu.vm.network :private_network, ip: "192.168.50.103"
     ubuntu.vm.provision :shell, path: 'provisioning/debian/install-dependencies.sh'
+
+    # Disable NFS as the base box we are using does not seem to support it
+    ubuntu.vm.synced_folder ".", "/vagrant", id: 'vagrant-root', nfs: false
+    ubuntu.cache.enable_nfs = false
   end
 
   config.vm.define :wheezy do |debian|
