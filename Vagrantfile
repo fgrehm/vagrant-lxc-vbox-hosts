@@ -61,7 +61,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.define :fedora19 do |fedora|
     fedora.vm.box = 'fedora19'
-    fedora.vm.box_url = 'https://dl.dropboxusercontent.com/u/86066173/fedora-19.box'
+    fedora.vm.box_url = 'https://www.dropbox.com/s/bbnaog12inybfg0/fedora-19-vagrant.box'
     fedora.vm.network :private_network, ip: "192.168.50.106"
     fedora.vm.provision :shell, path: 'provisioning/fedora/install-dependencies.sh'
     fedora.vm.provision :shell, path: 'provisioning/fedora/configure-bridge.sh'

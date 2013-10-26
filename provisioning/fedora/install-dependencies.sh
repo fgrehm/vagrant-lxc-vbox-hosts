@@ -7,7 +7,7 @@ if $(which lxc-create > /dev/null); then
   exit 0
 else
   yum update -y
-  yum install -y redir tar bridge-utils python3
+  yum install -y redir tar python3
 
   mkdir -p /tmp/lxc
   pushd /tmp/lxc
