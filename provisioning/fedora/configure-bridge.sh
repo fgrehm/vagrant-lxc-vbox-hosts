@@ -21,6 +21,7 @@ systemctl restart dnsmasq.service
 cat <<-EOF > /etc/systemd/system/lxc-net.service
 [Unit]
 Description=Network service for LXC Containers
+After=firewalld.service
 
 [Service]
 Type=oneshot
