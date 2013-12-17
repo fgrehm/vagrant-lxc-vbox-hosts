@@ -16,7 +16,7 @@ Vagrant.configure("2") do |config|
   end
 
   # Choose any Vagrant version from 1.2.0 to 1.3.5
-  config.vm.provision :shell, path: 'provisioning/install-vagrant.rb', args: "'1.3.5'"
+  config.vm.provision :shell, path: 'provisioning/install-vagrant.rb', args: "'1.4.0'"
   config.vm.provision :shell, path: 'provisioning/install-vagrant-lxc.sh'
 
   config.vm.define :precise do |ubuntu|

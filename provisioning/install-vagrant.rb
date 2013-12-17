@@ -4,6 +4,7 @@
 #       http://www.artificialworlds.net/blog/2012/10/17/bash-associative-array-examples/
 
 VAGRANTS = {
+  '1.4.0' => 'https://dl.bintray.com/mitchellh/vagrant/vagrant_1.4.0_x86_64',
   '1.3.5' => 'http://files.vagrantup.com/packages/a40522f5fabccb9ddabad03d836e120ff5d14093/vagrant_1.3.5_x86_64',
   '1.3.4' => 'http://files.vagrantup.com/packages/0ac2a87388419b989c3c0d0318cc97df3b0ed27d/vagrant_1.3.4_x86_64',
   '1.3.3' => 'http://files.vagrantup.com/packages/db8e7a9c79b23264da129f55cf8569167fc22415/vagrant_1.3.3_x86_64',
