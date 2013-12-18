@@ -15,8 +15,8 @@ Vagrant.configure("2") do |config|
     vb.customize [ "modifyvm", :id, "--memory", 1536, "--cpus", "2" ]
   end
 
-  # Choose any Vagrant version from 1.2.0 to 1.3.5
-  config.vm.provision :shell, path: 'provisioning/install-vagrant.rb', args: "'1.4.0'"
+  # Choose any Vagrant version from 1.2.0 to 1.4.1
+  config.vm.provision :shell, path: 'provisioning/install-vagrant.rb', args: "'1.4.1'"
   config.vm.provision :shell, path: 'provisioning/install-vagrant-lxc.sh'
 
   config.vm.define :precise do |ubuntu|
