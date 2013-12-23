@@ -21,3 +21,7 @@ $ vagrant reload BOX_NAME
 | raring  | Ubuntu 13.04 64 bits |
 | saucy   | Ubuntu 13.10 64 bits |
 | wheezy  | Debian 7.0 64 bits |
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/fgrehm/vagrant-lxc-vbox-hosts/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
