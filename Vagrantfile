@@ -42,6 +42,12 @@ Vagrant.configure("2") do |config|
     ubuntu.vm.provision :shell, path: 'provisioning/debian/install-dependencies.sh'
   end
 
+  config.vm.define :trusty do |ubuntu|
+    ubuntu.vm.box = 'trusty64'
+    ubuntu.vm.box_url = 'http://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box'
+    ubuntu.vm.provision :shell, path: 'provisioning/debian/install-dependencies.sh'
+  end
+
   config.vm.define :wheezy do |debian|
     debian.vm.box = 'wheezy64'
     debian.vm.box_url = 'http://puppet-vagrant-boxes.puppetlabs.com/debian-70rc1-x64-vbox4210.box'
