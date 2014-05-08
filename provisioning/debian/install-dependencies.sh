@@ -8,7 +8,8 @@ else
   apt-get update  -q
   # TODO: Check if we'll need to always upgrade the kernel
   export DEBIAN_FRONTEND=noninteractive
-  apt-get install -y -q lxc redir linux-image-generic linux-headers-generic btrfs-tools
+  # NFS SERVER!
+  apt-get install -y -q lxc redir btrfs-tools # linux-image-generic linux-headers-generic btrfs-tools
   apt-get autoremove -y
 fi
 

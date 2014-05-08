@@ -1,6 +1,13 @@
 #!/usr/bin/env ruby
 
 VAGRANTS = {
+  '1.6.1' => 'https://dl.bintray.com/mitchellh/vagrant/vagrant_1.6.1_x86_64',
+  '1.6.0' => 'https://dl.bintray.com/mitchellh/vagrant/vagrant_1.6.0_x86_64',
+  '1.5.4' => 'https://dl.bintray.com/mitchellh/vagrant/vagrant_1.5.4_x86_64',
+  '1.5.3' => 'https://dl.bintray.com/mitchellh/vagrant/vagrant_1.5.3_x86_64',
+  '1.5.2' => 'https://dl.bintray.com/mitchellh/vagrant/vagrant_1.5.2_x86_64',
+  '1.5.1' => 'https://dl.bintray.com/mitchellh/vagrant/vagrant_1.5.1_x86_64',
+  '1.5.0' => 'https://dl.bintray.com/mitchellh/vagrant/vagrant_1.5.0_x86_64',
   '1.4.3' => 'https://dl.bintray.com/mitchellh/vagrant/vagrant_1.4.3_x86_64',
   '1.4.2' => 'https://dl.bintray.com/mitchellh/vagrant/vagrant_1.4.2_x86_64',
   '1.4.1' => 'https://dl.bintray.com/mitchellh/vagrant/vagrant_1.4.1_x86_64',
@@ -36,8 +43,15 @@ else
   installer = 'rpm -U'
 end
 
-puts "Installing vagrant #{ARGV[0]}"
-if ! system "wget #{VAGRANTS.fetch ARGV[0]}.#{extension} -O /tmp/vagrant.#{extension} -q"
-  system "curl -L -o /tmp/vagrant.#{extension} #{VAGRANTS.fetch ARGV[0]}.#{extension}"
+
+if File.directory?('/tmp/vagrant-cache')
+  destination = "/tmp/vagrant-cache/vagrant-#{ARGV[0]}.#{extension}"
+else
+  destination = "/tmp/vagrant-#{ARGV[0]}.#{extension}"
 end
-system "#{installer} /tmp/vagrant.#{extension}"
+
+puts "Installing vagrant #{ARGV[0]}"
+if ! system "wget #{VAGRANTS.fetch ARGV[0]}.#{extension} -O #{destination} -q"
+  system "curl -L -o #{destination} #{VAGRANTS.fetch ARGV[0]}.#{extension}"
+end
+system "#{installer} #{destination}"
