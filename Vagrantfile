@@ -1,10 +1,6 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-# Avoid the need to pass in --provider=virtualbox all the time in case the
-# variable is set
-ENV['VAGRANT_DEFAULT_PROVIDER'] = 'virtualbox'
-
 Vagrant.configure("2") do |config|
   # Comment out if you don't have plans to use https://github.com/fgrehm/vagrant-cachier
   config.cache.scope = :box
