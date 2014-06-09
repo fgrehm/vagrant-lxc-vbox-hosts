@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 
 VAGRANTS = {
+  '1.6.3' => 'https://dl.bintray.com/mitchellh/vagrant/vagrant_1.6.3_x86_64',
+  '1.6.2' => 'https://dl.bintray.com/mitchellh/vagrant/vagrant_1.6.2_x86_64',
   '1.6.1' => 'https://dl.bintray.com/mitchellh/vagrant/vagrant_1.6.1_x86_64',
   '1.6.0' => 'https://dl.bintray.com/mitchellh/vagrant/vagrant_1.6.0_x86_64',
   '1.5.4' => 'https://dl.bintray.com/mitchellh/vagrant/vagrant_1.5.4_x86_64',
