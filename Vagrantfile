@@ -12,7 +12,7 @@ Vagrant.configure("2") do |config|
 
   # Choose any Vagrant version from 1.2.0 to 1.6.3
   config.vm.provision :shell, path: 'provisioning/install-vagrant.rb', args: "'1.6.3'"
-  config.vm.provision :shell, path: 'provisioning/install-vagrant-lxc.sh', args: "'1.0.0.alpha.2'"
+  config.vm.provision :shell, path: 'provisioning/install-vagrant-lxc.sh', args: "'1.0.1'"
 
   config.vm.define :precise do |ubuntu|
     ubuntu.vm.box     = 'precise64'
