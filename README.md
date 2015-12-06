@@ -3,6 +3,10 @@
 Basically a set of Vagrant VirtualBox machines ready for [vagrant-lxc](https://github.com/fgrehm/vagrant-lxc)
 usage, serving as "live documentation" on how to set up hosts for using the plugin.
 
+## :warning: Deprecated
+
+[I've stepped down as a maintainer of the plugin](https://github.com/fgrehm/vagrant-lxc/issues/375) and I'm no longer maintaining this repo. Feel free to use it as a starting point for your own boxes and if you need any help with that just LMK! :beers: 
+
 ## Usage
 
 ```
